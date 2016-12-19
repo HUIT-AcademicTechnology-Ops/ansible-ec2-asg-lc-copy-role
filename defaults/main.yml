@@ -1,0 +1,10 @@
+---
+# defaults file for update_asg_launch_configurations
+# ec2_asg_lc_copy_asg_tags:  Dictionary of tags used to match against autoscaling groups
+# ec2_asg_lc_copy_boto_profile:
+# ec2_asg_lc_copy_image_id:
+# ec2_asg_lc_copy_instance_profile_name:
+# ec2_asg_lc_copy_instance_type:
+# ec2_asg_lc_copy_key_name:
+# ec2_asg_lc_copy_security_groups:
+# ec2_asg_lc_copy_user_data:
