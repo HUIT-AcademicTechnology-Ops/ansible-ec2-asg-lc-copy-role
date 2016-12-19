@@ -1,6 +1,6 @@
 galaxy_info:
   author: Jaime Bermudez
-  description: Replace a launch configuration associated with one or more ASGs by mimicing the AWS "copy" functionality
+  description: Update a launch configuration associated with an ASG by mimicing the AWS "copy" functionality
   company: Academic Technology at Harvard University
 
   # If the issue tracker for your role is not on github, uncomment the
