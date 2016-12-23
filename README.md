@@ -1,14 +1,14 @@
-EC2 Autoscaling Group Launch Configuration Override
+EC2 Autoscaling Group Launch Configuration Copy
 =========
 
-This role mimics the ability in the AWS console to copy an existing launch configuration.  The use case for this role requires that the launch configurations be associated with an autoscaling group.  The launch configuration details are retrieved  new launch configuration is created with overrides, installed in the ASG, and then the old LC is deleted.
+This role mimics the ability in the AWS console to copy an existing launch configuration, with the added function of replacing an existing launch configuration associated with an ASG.  The role expects an autoscaling group name identifier and a launch configuration name identifier to run.  The launch configuration details are retrieved, and a new launch configuration is created with overrides, installed in the ASG, and then the old LC is optionally removed.
 
 Requirements
 ------------
 
-* Ansible 1.8+
+* Ansible 1.9+
 * awscli
-* Boto3
+* boto3
 
 Role Variables
 --------------
@@ -18,7 +18,7 @@ Role Variables
 | ec2_asg_lc_copy_asg_group_name    | yes      |         | The name of the autoscaling group associated with the launch config |   |
 | ec2_asg_lc_copy_asg_lc_name       | yes      |         | The name of the launch configuration to copy                        |   |
 | ec2_asg_lc_copy_boto_profile      | no       |         | The named boto/aws profile used to match credentials                |   |
-| ec2_asg_lc_copy_delete_prior_lc   | no       |   yes   | Whether to delete the lc that was copied                            |   |
+| ec2_asg_lc_copy_delete_prior_lc   | no       |   no   | Whether to delete the lc that was copied                            |   |
 | ec2_asg_lc_copy_image_id          | no       |         | The image id lc override value                                      |   |
 | ec2_asg_lc_copy_instance_profile  | no       |         | The instance profile name lc override value                         |   |
 | ec2_asg_lc_copy_instance_type     | no       |         | The instance type lc override value                                 |   |

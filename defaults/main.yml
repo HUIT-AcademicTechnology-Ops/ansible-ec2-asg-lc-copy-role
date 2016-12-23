@@ -1,3 +1,3 @@
 ---
 # defaults file for update_asg_launch_configurations
-ec2_asg_lc_copy_delete_prior_lc: yes
+ec2_asg_lc_copy_delete_prior_lc: no
