@@ -1,4 +1,4 @@
-EC2 Autoscaling Group Launch Configuration Copy
+Ansible Role: EC2 Autoscaling Group Launch Configuration Copy
 =========
 
 This role mimics the ability in the AWS console to copy an existing launch configuration, with the added function of replacing an existing launch configuration associated with an ASG.  The role expects an autoscaling group name identifier and a launch configuration name identifier to run.  The launch configuration details are retrieved, and a new launch configuration is created with overrides, installed in the ASG, and then the old LC is optionally removed.
