@@ -3,8 +3,6 @@ dist: trusty
 language: python
 python:
   - "2.7"
-  # PyPy versions
-  - "pypy"
 
 # Use the new container infrastructure
 sudo: false
@@ -21,7 +19,7 @@ env:
 
 install:
   # Install ansible
-  - pip install ansible=$ANSIBLE_VERSION
+  - pip install ansible==$ANSIBLE_VERSION
 
   # Check ansible version
   - ansible --version
