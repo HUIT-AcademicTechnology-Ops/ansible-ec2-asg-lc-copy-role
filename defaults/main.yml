@@ -1,2 +1,2 @@
 ---
-ec2_asg_lc_copy_delete_prior_lc: "false"
+ec2_lc_copy_delete_prior_lc: "false"
