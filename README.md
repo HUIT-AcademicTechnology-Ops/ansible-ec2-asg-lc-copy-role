@@ -41,10 +41,10 @@ Example Playbook
     - hosts: 127.0.0.1
       connection: local
       vars:
-        ec2_asg_lc_copy_asg_lc_name: my-cool-lc
-        ec2_asg_lc_copy_region: us-east-1
+        ec2_lc_copy_lc_name: my-cool-lc
+        ec2_lc_copy_region: us-east-1
       roles:
-         - { role: ec2_asg_lc_copy }
+         - { role: ec2_lc_copy }
 ```
 
 License
