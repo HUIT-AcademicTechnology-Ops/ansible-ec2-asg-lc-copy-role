@@ -34,7 +34,7 @@
     lc_check: no
     region: "{{ ec2_lc_copy_region | d(omit) }}"
     profile: "{{ ec2_lc_copy_boto_profile | d(omit) }}"
-  when: ec2_lc_copy_asg_group_name is defined
+  when: ec2_lc_copy_asg_name is defined
 
 - name: Optionally, remove the old launch configuration
   ec2_lc:
