@@ -24,6 +24,7 @@
     user_data: "{{ ec2_lc_copy_user_data | d(ec2_lc_copy_lc_current.UserData | b64decode) }}"
     region: "{{ ec2_lc_copy_region | d(omit) }}"
     profile: "{{ ec2_lc_copy_boto_profile | d(omit) }}"
+  notify: "ec2 lc copy lc created"
   register: ec2_lc_copy_lc_new
 
 - name: If we have an ASG identifier, update the ASG to use the launch configuration copy
@@ -34,6 +35,7 @@
     lc_check: no
     region: "{{ ec2_lc_copy_region | d(omit) }}"
     profile: "{{ ec2_lc_copy_boto_profile | d(omit) }}"
+  notify: "ec2 lc copy asg updated"
   when: ec2_lc_copy_asg_name is defined
 
 - name: Optionally, remove the old launch configuration
