@@ -1,27 +1,31 @@
 ---
 # tasks file for ec2_lc_copy
-- name: Get details of a launch configuration by name
-  command: >
-    aws autoscaling describe-launch-configurations
-    --launch-configuration-names {{ ec2_lc_copy_lc_name }}
-    --profile {{ ec2_lc_copy_boto_profile | d(omit) }}
-    --region {{ ec2_lc_copy_region | d(omit) }}
-    --max-items 1
-  register: ec2_lc_copy_lc_stdout
 
-- name: Convert output to JSON and store it in a variable
-  set_fact: ec2_lc_copy_lc_current="{{ (ec2_lc_copy_lc_stdout.stdout | from_yaml).LaunchConfigurations[0] }}"
+- name: Get details of a launch configuration by name
+  ec2_lc_facts:
+    name: "{{ ec2_lc_copy_lc_name }}"
+    region: "{{ ec2_lc_copy_region | d(omit) }}"
+    profile: "{{ ec2_lc_copy_boto_profile | d(omit) }}"
+  register: ec2_lc_copy_lc_results
+
+- name: Fail if there are no matching launch configurations
+  fail:
+    msg: "No launch configurations matched on the name \"{{ ec2_lc_copy_lc_name }}\""
+  when: not ec2_lc_copy_lc_results.launch_configurations
+
+- name: Grab first (and only) result in list
+  set_fact: ec2_lc_copy_lc_current="{{ ec2_lc_copy_lc_results.launch_configurations[0] }}"
 
 - name: Create a new launch configuration based on the existing one with updated values
   ec2_lc:
     state: present
-    name: "{{ ec2_lc_copy_lc_current.LaunchConfigurationName }}-Copy"
-    image_id: "{{ ec2_lc_copy_image_id | d(ec2_lc_copy_lc_current.ImageId) }}"
-    instance_profile_name: "{{ ec2_lc_copy_instance_profile | d(ec2_lc_copy_lc_current.IamInstanceProfile) }}"
-    instance_type: "{{ ec2_lc_copy_instance_type | d(ec2_lc_copy_lc_current.InstanceType) }}"
-    key_name: "{{ ec2_lc_copy_key_name | default(ec2_lc_copy_lc_current.KeyName) }}"
-    security_groups: "{{ ec2_lc_copy_security_groups | d(ec2_lc_copy_lc_current.SecurityGroups) }}"
-    user_data: "{{ ec2_lc_copy_user_data | d(ec2_lc_copy_lc_current.UserData | b64decode) }}"
+    name: "{{ ec2_lc_copy_lc_current.launch_configuration_name }}-Copy"
+    image_id: "{{ ec2_lc_copy_image_id | d(ec2_lc_copy_lc_current.image_id) }}"
+    instance_profile_name: "{{ ec2_lc_copy_instance_profile | d(ec2_lc_copy_lc_current.iam_instance_profile) }}"
+    instance_type: "{{ ec2_lc_copy_instance_type | d(ec2_lc_copy_lc_current.instance_type) }}"
+    key_name: "{{ ec2_lc_copy_key_name | default(ec2_lc_copy_lc_current.key_name) }}"
+    security_groups: "{{ ec2_lc_copy_security_groups | d(ec2_lc_copy_lc_current.security_groups) }}"
+    user_data: "{{ ec2_lc_copy_user_data | d(ec2_lc_copy_lc_current.user_data | b64decode) }}"
     region: "{{ ec2_lc_copy_region | d(omit) }}"
     profile: "{{ ec2_lc_copy_boto_profile | d(omit) }}"
   register: ec2_lc_copy_lc_new

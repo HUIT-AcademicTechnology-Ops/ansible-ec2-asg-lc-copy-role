@@ -6,8 +6,7 @@ This role mimics the ability in the AWS console to copy an existing launch confi
 Requirements
 ------------
 
-* Ansible 1.9+
-* awscli
+* Ansible 2.3+
 * boto3
 
 Role Variables
@@ -31,8 +30,8 @@ Role Variables
 Dependencies
 ------------
 
-The ec2_asg_facts Ansible extras module is handy to get the ASG group name and launch config name if you want to operate on a set
-of ASGs at once.
+None
+
 
 Example Playbook
 ----------------
